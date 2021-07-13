@@ -108,7 +108,7 @@ namespace System.ServiceModel.Federation
         /// <returns></returns>
         internal virtual ChannelFactory<IRequestChannel> ChannelFactory { get; set; }
 
-        internal ClientCredentials ClientCredentials { get; set; }
+        protected internal ClientCredentials ClientCredentials { get; set; }
 
         /// <summary>
         /// Creates a <see cref="WsTrustRequest"/> from the <see cref="WSTrustTokenParameters"/>

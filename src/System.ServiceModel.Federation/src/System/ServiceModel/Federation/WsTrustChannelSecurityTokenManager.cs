@@ -16,7 +16,7 @@ namespace System.ServiceModel.Federation
         private const string Namespace = "http://schemas.microsoft.com/ws/2006/05/servicemodel/securitytokenrequirement";
         private const string IssuedSecurityTokenParametersProperty = Namespace + "/IssuedSecurityTokenParameters";
 
-        private WSTrustChannelClientCredentials _wsTrustChannelClientCredentials;
+        protected internal WSTrustChannelClientCredentials WsTrustChannelClientCredentials;
 
         /// <summary>
         /// Instantiates a <see cref="WSTrustChannelSecurityTokenManager"/>.
@@ -25,7 +25,7 @@ namespace System.ServiceModel.Federation
         public WSTrustChannelSecurityTokenManager(WSTrustChannelClientCredentials wsTrustChannelClientCredentials)
             : base(wsTrustChannelClientCredentials)
         {
-            _wsTrustChannelClientCredentials = wsTrustChannelClientCredentials ?? throw DiagnosticUtility.ExceptionUtility.ThrowHelper(new ArgumentNullException(nameof(wsTrustChannelClientCredentials)), EventLevel.Error);
+            WsTrustChannelClientCredentials = wsTrustChannelClientCredentials ?? throw DiagnosticUtility.ExceptionUtility.ThrowHelper(new ArgumentNullException(nameof(wsTrustChannelClientCredentials)), EventLevel.Error);
         }
 
         /// <summary>
@@ -46,13 +46,13 @@ namespace System.ServiceModel.Federation
                 // pass issuedtokenRequirements
                 return new WSTrustChannelSecurityTokenProvider(tokenRequirement)
                 {
-                    ClientCredentials = _wsTrustChannelClientCredentials.ClientCredentials
+                    ClientCredentials = WsTrustChannelClientCredentials.ClientCredentials
                 };
             }
             // If the original ChannelFactory had a ClientCredentials instance, defer to that
-            else if (_wsTrustChannelClientCredentials.SecurityTokenManager != null)
+            else if (WsTrustChannelClientCredentials.SecurityTokenManager != null)
             {
-                return _wsTrustChannelClientCredentials.SecurityTokenManager.CreateSecurityTokenProvider(tokenRequirement);
+                return WsTrustChannelClientCredentials.SecurityTokenManager.CreateSecurityTokenProvider(tokenRequirement);
             }
             // This means ClientCredentials was replaced with WSTrustChannelClientCredentials in the ChannelFactory so defer
             // to base class to create other token providers.

@@ -86,22 +86,7 @@ namespace System.IdentityModel.Tokens
 
         public override string ToString()
         {
-            StringWriter writer = new StringWriter(CultureInfo.InvariantCulture);
-            writer.WriteLine("Generic XML token:");
-            writer.WriteLine("   validFrom: {0}", ValidFrom);
-            writer.WriteLine("   validTo: {0}", ValidTo);
-            if (InternalTokenReference != null)
-            {
-                writer.WriteLine("   InternalTokenReference: {0}", InternalTokenReference);
-            }
-
-            if (ExternalTokenReference != null)
-            {
-                writer.WriteLine("   ExternalTokenReference: {0}", ExternalTokenReference);
-            }
-
-            writer.WriteLine("   Token Element: ({0}, {1})", TokenXml.LocalName, TokenXml.NamespaceURI);
-            return writer.ToString();
+            return TokenXml.OuterXml;
         }
 
         private static string GetId(XmlElement tokenXml)

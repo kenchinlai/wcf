@@ -47,7 +47,7 @@ namespace System.ServiceModel.Federation
         ///  The client credentials from BindingParameters passed by ChannelFactory. There might be
         ///  other credentials configured on this instance so used as a fallback.
         /// </summary>
-        public ClientCredentials ClientCredentials { get; private set; }
+        public ClientCredentials ClientCredentials { get; set; }
 
         /// <summary>
         /// Creates a shallow clone of this.
@@ -72,6 +72,6 @@ namespace System.ServiceModel.Federation
             return new WSTrustChannelSecurityTokenManager((WSTrustChannelClientCredentials)Clone());
         }
 
-        internal SecurityTokenManager SecurityTokenManager { get; private set; }
+        protected internal SecurityTokenManager SecurityTokenManager { get; set; }
     }
 }
