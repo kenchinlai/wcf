@@ -1,4 +1,5 @@
 #!/bin/bash -e
+
 operation="${1}"
 
 function bail() {
@@ -9,14 +10,13 @@ function bail() {
     fi
     exit 1
 }
+
+configuration=Release
+
 if [[ -z "${operation}" ]]; then
-    bail "Must supply parameter (restore|build)"
-elif [[ "${operation}" == "restore" ]]; then
-    ./eng/common/build.sh --restore
-elif [[ "${operation}" == "build" ]]; then
-    ./eng/common/build.sh --build
-elif [[ "${operation}" == "pack" ]]; then
-    ./eng/common/build.sh --pack
+    bail "Must supply parameter (restore|build|pack)"
+elif [[ "${operation}" == "restore" ]] || [[ "${operation}" == "build" ]] || [[ "${operation}" == "pack" ]]; then
+    ./eng/common/build.sh --configuration ${configuration} --${operation}
 else
     bail "Parameter ${operation} not supported"
 fi
