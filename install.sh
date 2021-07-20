@@ -16,6 +16,7 @@ else
   dest=$1
   sudo=""
   owner=$USER
+  release="artifacts/packages/Release/Shipping/"
 fi
 
 if [ ! -d $dest ]; then
@@ -25,10 +26,6 @@ fi
 
 echo "INFO: Installing dotnet/wcf packages to $dest"
 
-version="4.9.0-dev.21365.1"
-packages="System.Private.ServiceModel System.ServiceModel.Duplex System.ServiceModel.Federation System.ServiceModel.Http System.ServiceModel.NetTcp System.ServiceModel.Primitives System.ServiceModel.Security"
- 
-prefixes="System.ServiceModel.Http System.ServiceModel.Duplex System.ServiceModel.NetTcp System.ServiceModel.Primitives System.ServiceModel.Security System.Private.ServiceModel"
-for package in $packages; do
-    $sudo install -o $owner -g $owner -m 644 "artifacts/packages/Release/Shipping/$package.$version.nupkg" $dest
+for package in $release/*.nupkg; do
+    $sudo install -o $owner -g $owner -m 644 "$package" $dest
 done
