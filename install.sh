@@ -14,7 +14,7 @@ if [ -z "$1" ]; then
 else
   # Specify an alternate folder to install without sudo
   dest=$1
-  sudo=""
+  sudo="sudo"
   owner=$USER
 fi
 
@@ -25,10 +25,10 @@ fi
 
 echo "INFO: Installing dotnet/wcf packages to $dest"
 
-version="4.9.0-dev.21365.1"
+version="4.9.0-dev"
 packages="System.Private.ServiceModel System.ServiceModel.Duplex System.ServiceModel.Federation System.ServiceModel.Http System.ServiceModel.NetTcp System.ServiceModel.Primitives System.ServiceModel.Security"
  
 prefixes="System.ServiceModel.Http System.ServiceModel.Duplex System.ServiceModel.NetTcp System.ServiceModel.Primitives System.ServiceModel.Security System.Private.ServiceModel"
 for package in $packages; do
-    $sudo install -o $owner -g $owner -m 644 "artifacts/packages/Release/Shipping/$package.$version.nupkg" $dest
+    $sudo install -o $owner -g $owner -m 644 "artifacts/packages/Release/Shipping/$package.$version.*.nupkg" $dest
 done
